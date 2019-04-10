@@ -6,7 +6,6 @@ public class InvalidAuthenticationException extends RuntimeException {
 
     public InvalidAuthenticationException(String message) {
         this.message = message;
-
     }
 
     @Override

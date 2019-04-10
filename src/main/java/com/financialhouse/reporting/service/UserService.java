@@ -1,11 +1,9 @@
 package com.financialhouse.reporting.service;
 
 import com.financialhouse.reporting.exception.InvalidAuthenticationException;
-import com.financialhouse.reporting.entity.ApiUser;
 import com.financialhouse.reporting.model.Role;
 import com.financialhouse.reporting.model.enumaration.Status;
 import com.financialhouse.reporting.model.request.LoginRequest;
-import com.financialhouse.reporting.model.request.SignUpRequest;
 import com.financialhouse.reporting.model.response.LoginResponse;
 import com.financialhouse.reporting.repository.UserRepository;
 import com.financialhouse.reporting.security.JwtTokenProvider;
@@ -46,18 +44,6 @@ public class UserService {
             return new LoginResponse(token, Status.APPROVED);
         } catch (AuthenticationException e) {
             throw new InvalidAuthenticationException("Invalid email or password");
-        }
-    }
-
-    public String signUp(SignUpRequest signUpRequest) {
-        if (!userRepository.existsByEmail(signUpRequest.getUsername())) {
-            ApiUser apiUser = new ApiUser();
-            apiUser.setEmail(signUpRequest.getUsername());
-            apiUser.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-            userRepository.save(apiUser);
-            return "";//jwtTokenProvider.createToken(apiUser.getEmail(), apiUser.getRoles());
-        } else {
-            throw new InvalidAuthenticationException("email is already in use");
         }
     }
 }
