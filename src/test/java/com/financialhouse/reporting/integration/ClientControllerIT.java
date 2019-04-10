@@ -1,22 +1,17 @@
 package com.financialhouse.reporting.integration;
 
-import com.financialhouse.reporting.model.request.LoginRequest;
-import com.financialhouse.reporting.model.request.TransactionsReportRequest;
 import com.financialhouse.reporting.model.response.CustomerInfoDto;
-import com.financialhouse.reporting.model.response.LoginResponse;
-import com.financialhouse.reporting.model.response.TransactionsReportResponse;
 import com.financialhouse.reporting.util.AuthorizationUtil;
 import com.financialhouse.reporting.util.URICreator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.net.URI;
 import java.net.URISyntaxException;
 
 import static org.junit.Assert.assertEquals;
@@ -44,9 +39,9 @@ public class ClientControllerIT {
 
         CustomerInfoDto customerInfoDto = response.getBody();
         assertNotNull(customerInfoDto);
-        assertEquals("1XXX345",customerInfoDto.getNumber());
-        assertEquals("customer@email.com",customerInfoDto.getEmail());
-        assertEquals("first-name",customerInfoDto.getBillingFirstName());
-        assertEquals("last-name",customerInfoDto.getBillingLastName());
+        assertEquals("1XXX345", customerInfoDto.getNumber());
+        assertEquals("customer@email.com", customerInfoDto.getEmail());
+        assertEquals("first-name", customerInfoDto.getBillingFirstName());
+        assertEquals("last-name", customerInfoDto.getBillingLastName());
     }
 }

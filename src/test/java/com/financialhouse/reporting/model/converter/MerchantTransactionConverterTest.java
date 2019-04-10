@@ -21,7 +21,7 @@ public class MerchantTransactionConverterTest {
     }
 
     @Test
-    public void should_convert_transacation_to_merchant_transaction() {
+    public void should_convert_transaction_to_merchant_transaction() {
         Transaction transaction = new Transaction();
         transaction.setStatus(Status.DECLINED);
         transaction.setReferenceNo(UUID.randomUUID().toString());

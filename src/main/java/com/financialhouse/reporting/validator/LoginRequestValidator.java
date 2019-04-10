@@ -9,9 +9,17 @@ import org.springframework.util.StringUtils;
 public class LoginRequestValidator {
 
     public static void validate(LoginRequest loginRequest) {
-        if (StringUtils.isEmpty(loginRequest.getEmail()) ||
-                StringUtils.isEmpty(loginRequest.getPassword())) {
+        if (validateEmail(loginRequest.getEmail()) ||
+                validatePassword(loginRequest.getPassword())) {
             throw new InvalidRequestException("Username or Password must not be empty");
         }
+    }
+
+    private static boolean validateEmail(String email) {
+        return StringUtils.isEmpty(email);
+    }
+
+    private static boolean validatePassword(String password) {
+        return StringUtils.isEmpty(password);
     }
 }

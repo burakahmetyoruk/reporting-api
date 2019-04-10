@@ -2,6 +2,8 @@ package com.financialhouse.reporting.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -16,11 +18,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationProvider authenticationProvider;
+    private final ApiUserDetails apiUserDetails;
 
     public WebSecurityConfig(JwtTokenProvider jwtTokenProvider,
-                             AuthenticationProvider authenticationProvider) {
+                             AuthenticationProvider authenticationProvider,
+                             ApiUserDetails apiUserDetails) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationProvider = authenticationProvider;
+        this.apiUserDetails = apiUserDetails;
     }
 
     @Override
@@ -36,8 +41,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.apply(new JwtTokenFilterConfigurer(jwtTokenProvider, authenticationProvider));
     }
 
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.parentAuthenticationManager(authenticationManager())
+                .userDetailsService(apiUserDetails);
+    }
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

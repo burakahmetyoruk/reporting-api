@@ -3,6 +3,7 @@ package com.financialhouse.reporting.model.request;
 public class LoginRequest {
 
     private String email;
+
     private String password;
 
     public String getEmail() {
