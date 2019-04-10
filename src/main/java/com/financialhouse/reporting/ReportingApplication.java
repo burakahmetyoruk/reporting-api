@@ -8,4 +8,4 @@ public class ReportingApplication {
     public static void main(String[] args) {
         SpringApplication.run(ReportingApplication.class, args);
     }
-}q
+}
