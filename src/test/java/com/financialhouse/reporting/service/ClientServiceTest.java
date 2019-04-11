@@ -9,13 +9,14 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Optional;
 import java.util.UUID;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.when;
 
@@ -37,6 +38,7 @@ public class ClientServiceTest {
 
     @Test
     public void should_retrieve_customer_info_successfully() {
+        //given
         CustomerInfo customerInfo = new CustomerInfo();
         customerInfo.setId(1L);
         customerInfo.setBillingFirstName("first-name");
@@ -54,9 +56,18 @@ public class ClientServiceTest {
         when(transactionRepository.findByTransactionId(transactionId)).thenReturn(Optional.of(transaction));
         when(customerInfoConverter.apply(customerInfo)).thenReturn(retrieveCustomerInfoResponse(customerInfo));
 
+        //when
         final CustomerInfoDto customerInfoDto = clientService.retrieveCustomerInfo(transactionId);
 
+        //then
         assertNotNull(customerInfoDto);
+        assertEquals(customerInfo.getBillingFirstName(), customerInfoDto.getBillingFirstName());
+        assertEquals(customerInfo.getBillingLastName(), customerInfoDto.getBillingLastName());
+        assertEquals(customerInfo.getNumber(), customerInfoDto.getNumber());
+        assertEquals(customerInfo.getCreatedDate(), customerInfoDto.getCreatedDate());
+        assertEquals(customerInfo.getUpdatedDate(), customerInfoDto.getUpdatedDate());
+        assertEquals(customerInfo.getEmail(), customerInfoDto.getEmail());
+        assertEquals(customerInfo.getId(), customerInfoDto.getId());
     }
 
     private CustomerInfoDto retrieveCustomerInfoResponse(CustomerInfo customerInfo) {

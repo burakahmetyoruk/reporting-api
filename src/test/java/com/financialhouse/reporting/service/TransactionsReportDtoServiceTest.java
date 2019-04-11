@@ -13,7 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -42,6 +42,7 @@ public class TransactionsReportDtoServiceTest {
 
     @Test
     public void should_retrieve_transactions_report_between_date() {
+        //given
         Date fromDate = Date.valueOf(FROM_DATE);
         Date toDate = Date.valueOf(TO_DATE);
 
@@ -51,8 +52,10 @@ public class TransactionsReportDtoServiceTest {
 
         when(transactionRepository.findByTransactionDateBetween(fromDate, toDate)).thenReturn(retrieveTransactionList());
 
+        //when
         final TransactionsReportResponse transactionsReportResponse = transactionsReportService.retrieveTransactionsReport(transactionsReportRequest);
 
+        //then
         assertNotNull(transactionsReportResponse);
         final List<TransactionsReportDto> transactionsReportDtoList = transactionsReportResponse.getTransactionsReportDtoList();
         assertNotNull(transactionsReportDtoList);
@@ -68,6 +71,7 @@ public class TransactionsReportDtoServiceTest {
 
     @Test
     public void should_retrieve_transactions_report_between_date_and_filter_with_merchant_id() {
+        //given
         Date fromDate = Date.valueOf(FROM_DATE);
         Date toDate = Date.valueOf(TO_DATE);
 
@@ -78,8 +82,10 @@ public class TransactionsReportDtoServiceTest {
 
         when(transactionRepository.findByTransactionDateBetween(fromDate, toDate)).thenReturn(retrieveTransactionList());
 
+        //when
         final TransactionsReportResponse transactionsReportResponse = transactionsReportService.retrieveTransactionsReport(transactionsReportRequest);
 
+        //then
         assertNotNull(transactionsReportResponse);
         final List<TransactionsReportDto> transactionsReportDtoList = transactionsReportResponse.getTransactionsReportDtoList();
         assertNotNull(transactionsReportDtoList);
@@ -88,6 +94,7 @@ public class TransactionsReportDtoServiceTest {
 
     @Test
     public void should_retrieve_transactions_report_between_date_and_filter_with_acquirer_id() {
+        //given
         Date fromDate = Date.valueOf(FROM_DATE);
         Date toDate = Date.valueOf(TO_DATE);
 
@@ -98,8 +105,10 @@ public class TransactionsReportDtoServiceTest {
 
         when(transactionRepository.findByTransactionDateBetween(fromDate, toDate)).thenReturn(retrieveTransactionList());
 
+        //when
         final TransactionsReportResponse transactionsReportResponse = transactionsReportService.retrieveTransactionsReport(transactionsReportRequest);
 
+        //then
         assertNotNull(transactionsReportResponse);
         final List<TransactionsReportDto> transactionsReportDtoList = transactionsReportResponse.getTransactionsReportDtoList();
         assertNotNull(transactionsReportDtoList);

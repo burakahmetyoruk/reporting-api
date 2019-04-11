@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.sql.Date;
@@ -54,6 +54,7 @@ public class TransactionServiceTest {
 
     @Test
     public void should_retrieve_transaction_with_id() {
+        //given
         String transactionId = "transaction-id";
 
         Merchant merchant = new Merchant();
@@ -85,10 +86,11 @@ public class TransactionServiceTest {
         when(acquirerConverter.apply(transaction.getAcquirer())).thenReturn(retrieveAcquirerDto());
         when(merchantConverter.apply(merchant)).thenReturn(retrieveMerchantDto());
 
+        //when
         final TransactionResponse transactionResponse = transactionService.retrieveTransaction(transactionId);
 
+        //then
         assertNotNull(transactionResponse);
-
         assertEquals(transaction.getReferenceNo(), transactionResponse.getReferenceNo());
         assertEquals(retrieveAcquirerDto(), transactionResponse.getAcquirerDto());
         assertEquals(retrieveFxDto(), transactionResponse.getFxDto());

@@ -11,7 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -41,6 +41,7 @@ public class UserServiceTest {
 
     @Test
     public void should_login_and_retrieve_token() {
+        //given
         LoginRequest loginRequest = new LoginRequest();
         loginRequest.setEmail("email@email.com");
         loginRequest.setPassword("password");
@@ -50,8 +51,11 @@ public class UserServiceTest {
                 "Pit64JKOs3CKTZuW-kzoBE_pr-_L3XpyDDH25TGQJkPBzYIPRX8vsPszrqD8NGpepovXa7EBhE_Ymg4weFNkog";
 
         when(jwtTokenProvider.createToken(loginRequest.getEmail(), Collections.singletonList(Role.API_USER))).thenReturn(token);
+
+        //when
         LoginResponse loginResponse = userService.login(loginRequest);
 
+        //then
         assertNotNull(loginResponse);
         assertEquals(Status.APPROVED, loginResponse.getStatus());
         assertEquals(token, loginResponse.getToken());

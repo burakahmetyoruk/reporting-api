@@ -19,12 +19,15 @@ public class MerchantConverterTest {
 
     @Test
     public void should_convert_merchant_to_merchant_dto() {
+        //given
         Merchant merchant = new Merchant();
         merchant.setName("name");
         merchant.setId(1L);
 
+        //when
         final MerchantDto merchantDto = merchantConverter.apply(merchant);
 
+        //then
         assertNotNull(merchantDto);
         assertEquals(merchant.getId(), merchantDto.getId());
         assertEquals(merchant.getName(), merchantDto.getName());

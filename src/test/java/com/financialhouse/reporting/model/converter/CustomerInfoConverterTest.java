@@ -24,6 +24,7 @@ public class CustomerInfoConverterTest {
 
     @Test
     public void should_convert_customer_info_to_customer_info_dto() {
+        //given
         CustomerInfo customerInfo = new CustomerInfo();
         customerInfo.setId(1L);
         customerInfo.setBillingFirstName("first-name");
@@ -33,8 +34,10 @@ public class CustomerInfoConverterTest {
         customerInfo.setUpdatedDate(Date.valueOf(LocalDate.now()));
         customerInfo.setNumber(UUID.randomUUID().toString());
 
+        //when
         final CustomerInfoDto customerInfoDto = customerInfoConverter.apply(customerInfo);
 
+        //then
         assertNotNull(customerInfoDto);
         assertEquals(customerInfo.getBillingFirstName(), customerInfoDto.getBillingFirstName());
         assertEquals(customerInfo.getBillingLastName(), customerInfoDto.getBillingLastName());

@@ -22,12 +22,15 @@ public class MerchantTransactionConverterTest {
 
     @Test
     public void should_convert_transaction_to_merchant_transaction() {
+        //given
         Transaction transaction = new Transaction();
         transaction.setStatus(Status.DECLINED);
         transaction.setReferenceNo(UUID.randomUUID().toString());
 
+        //when
         final MerchantTransaction merchantTransaction = merchantTransactionConverter.apply(transaction);
 
+        //then
         assertNotNull(merchantTransaction);
         assertEquals(transaction.getReferenceNo(), merchantTransaction.getReferenceNo());
         assertEquals(transaction.getStatus(), merchantTransaction.getStatus());

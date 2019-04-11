@@ -19,13 +19,15 @@ public class AcquirerConverterTest {
 
     @Test
     public void should_convert_acquirer_to_acquirer_dto() {
-
+        //given
         Acquirer acquirer = new Acquirer();
         acquirer.setId(1L);
         acquirer.setName("name");
 
+        //when
         final AcquirerDto acquirerDto = acquirerConverter.apply(acquirer);
 
+        //then
         assertNotNull(acquirerDto);
         assertEquals(acquirer.getId(), acquirerDto.getCode());
         assertEquals(acquirer.getName(), acquirerDto.getName());

@@ -21,13 +21,15 @@ public class FxConverterTest {
 
     @Test
     public void should_convert_fx_to_fx_dto() {
-
+        //given
         Fx fx = new Fx();
         fx.setCurrency(Currency.EUR);
         fx.setAmount(BigDecimal.TEN);
 
+        //when
         final FxDto fxDto = fxConverter.apply(fx);
 
+        //then
         assertNotNull(fxDto);
         assertEquals(fx.getAmount(), fxDto.getOriginalAmount());
         assertEquals(fx.getCurrency(), fxDto.getOriginalCurrency());
